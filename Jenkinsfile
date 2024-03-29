@@ -47,24 +47,19 @@ pipeline {
         }
         
         stage('Update K8S manifest & push to Repo'){
-            steps {
-                script{
-                    // Navigate to the directory containing the Kubernetes manifest file
-                    dir('deploy/') {
-                        withCredentials([usernamePassword(credentialsId: '184b2aa9-6a9a-418f-aca3-11268b2abda8', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                            sh '''
-                            cat deploy.yaml
-                            sed -i '' "s/32/${BUILD_NUMBER}/g" deploy.yaml
-                            cat deploy.yaml
-                            git add deploy.yaml
-                            git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                            git remote -v
-                            git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Shree1434/cicd-end-to-end-1.git HEAD:main
-                            '''                        
-                        }
-                    }
-                }
+    steps {
+        script{
+            // Navigate to the directory containing the Kubernetes manifest file
+            dir('path/to/directory') {
+                // Perform the substitution operation using sed
+                sh '''
+                cat deploy.yaml
+                sed -i 's/32/18/g' deploy.yaml
+                cat deploy.yaml
+                '''
+                // Additional steps for git commit and push
             }
         }
     }
 }
+
