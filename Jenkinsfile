@@ -36,29 +36,17 @@ pipeline {
             }
         }
         
-        stage('Checkout K8S manifest SCM') {
-            steps {
-                git credentialsId: '184b2aa9-6a9a-418f-aca3-11268b2abda8', 
-                url: 'https://github.com/Shree1434/cicd-end-to-end-1.git',
-                branch: 'main'
-            }
-        }
-        
-        stage('Update K8S manifest & push to Repo') {
+        stage('Deploy to Docker') {
             steps {
                 script {
-                    // Navigate to the directory containing the Kubernetes manifest file
-                    dir('deploy/') {
-                        // Perform the substitution operation using sed
-                        sh '''
-                        cat deploy.yaml
-                        sed -i 's/32/18/g' deploy.yaml
-                        cat deploy.yaml
-                        '''
-                    }
+                    sh '''
+                    echo 'Deploying to Docker'
+                    docker stop my-app || true
+                    docker rm my-app || true
+                    docker run -d --name my-app -p 8000:8000 shree1434/cicd-e2e:${BUILD_NUMBER}
+                    '''
                 }
             }
         }
     }
 }
-
