@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script{
                     // Navigate to the directory containing the Kubernetes manifest file
-                    dir('deploy/deploy.yaml') {
+                    dir('deploy/') {
                         withCredentials([usernamePassword(credentialsId: '184b2aa9-6a9a-418f-aca3-11268b2abda8', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                             sh '''
                             cat deploy.yaml
