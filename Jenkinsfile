@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     // Navigate to the directory containing the Kubernetes manifest file
-                    dir('path/to/directory') {
+                    dir('deploy/') {
                         // Perform the substitution operation using sed
                         sh '''
                         cat deploy.yaml
