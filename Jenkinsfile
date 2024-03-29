@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+    agent docker 
     
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
